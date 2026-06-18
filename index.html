@@ -4,10 +4,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agro Forte, Futuro Sustentável</title>
-    <link rel="stylesheet" href="style.css">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Definição de Variáveis */
+        :root {
+            --bg-color: #eaf5e4;      /* Fundo verde claro suave */
+            --card-bg: #76a863;       /* Verde folha médio para os cards */
+            --text-color: #ffffff;    /* Letras brancas */
+            --side-detail: #3d6a2f;   /* Cor do detalhe verde lateral */
+            --font-size-base: 16px;
+            --brightness-level: 100%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Fredoka', sans-serif;
+            transition: background-color 0.3s, color 0.3s, font-size 0.2s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: var(--font-size-base);
+            filter: brightness(var(--brightness-level));
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Modo Escuro */
+        body.dark-mode {
+            --bg-color: #172b15;
+            --card-bg: #274723;
+            --text-color: #e6f2e2;
+            --side-detail: #568e43;
+        }
+
+        /* Daltonismo */
+        body.deuteranopia { filter: brightness(var(--brightness-level)) grayscale(10%) sepia(20%) hue-rotate(-20deg); }
+        body.protanopia { filter: brightness(var(--brightness-level)) grayscale(10%) sepia(30%) hue-rotate(30deg); }
+        body.tritanopia { filter: brightness(var(--brightness-level)) grayscale(10%) sepia(20%) hue-rotate(180deg); }
+        body.acromatopsia { filter: brightness(var(--brightness-level)) grayscale(100%); }
+
+        /* Detalhes Verdes nas Laterais */
+        .leaf-detail {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 15px;
+            background-color: var(--side-detail);
+            opacity: 0.6;
+            z-index: 10;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        }
+        .leaf-left { left: 0; border-radius: 0 10px 10px 0; }
+        .leaf-right { right: 0; border-radius: 10px 0 0 10px; }
+
+        /* Barra de Acessibilidade */
+        .accessibility-bar {
+            background-color: rgba(0, 0, 0, 0.12);
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 20;
+        }
+
+        .accessibility-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button, select {
+            background: #ffffff;
+            color: #3d6a2f;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.06);
+        }
+
+        button:hover, select:hover {
+            transform: scale(1.05);
+            background: #f4faf2;
+        }
+
+        /* Área de Conteúdo */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 40px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        /* Grid de Cards */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+        }
+
+        /* Cards Estilizados */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 10px 22px rgba(0,0,0,0.06);
+            cursor: pointer;
+            transform: translateY(0);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-content h3 {
+            font-size: 1.45rem;
+            margin-bottom: 12px;
+        }
+
+        .card-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        @media(max-width: 600px) {
+            .main-content { padding: 30px 20px; }
+            .hero h1 { font-size: 2rem; }
+            .leaf-detail { width: 8px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -79,7 +250,7 @@
                 <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=500&auto=format&fit=crop&q=80" alt="Campos verdes e árvores ao pôr do sol">
                 <div class="card-content">
                     <h3>Agrofloresta</h3>
-                    <p>A perfeita harmonia entre a produção de alimentos e a regeneração de florestas nativas locais.</p>
+                    <p>A perfeita harmonia entre a produção de alimentos e a referência de florestas nativas locais.</p>
                 </div>
             </div>
 
@@ -94,206 +265,37 @@
         </section>
     </main>
 
-    <script src="script.js"></script>
+    <script>
+        // Controle do Tamanho da Fonte
+        let currentFontSize = 16;
+        function alterarFonte(action) {
+            currentFontSize += action;
+            if(currentFontSize < 12) currentFontSize = 12;
+            if(currentFontSize > 26) currentFontSize = 26;
+            document.documentElement.style.setProperty('--font-size-base', currentFontSize + 'px');
+        }
+
+        // Controle de Brilho
+        let currentBrightness = 100;
+        function alterarBrilho(action) {
+            currentBrightness += action;
+            if(currentBrightness < 40) currentBrightness = 40;
+            if(currentBrightness > 160) currentBrightness = 160;
+            document.documentElement.style.setProperty('--brightness-level', currentBrightness + '%');
+        }
+
+        // Alternar Modo Claro / Escuro
+        function toggleConteudo() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        // Filtros de Daltonismo
+        function aplicarDaltonismo(tipo) {
+            document.body.classList.remove('deuteranopia', 'protanopia', 'tritanopia', 'acromatopsia');
+            if (tipo !== 'normal') {
+                document.body.classList.add(tipo);
+            }
+        }
+    </script>
 </body>
-</html>/* Definição de Variáveis */
-:root {
-    --bg-color: #eaf5e4;      /* Fundo verde claro suave */
-    --card-bg: #76a863;       /* Verde folha médio para os cards */
-    --text-color: #ffffff;    /* Letras brancas */
-    --side-detail: #3d6a2f;   /* Cor do detalhe verde lateral */
-    --font-size-base: 16px;
-    --brightness-level: 100%;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Fredoka', sans-serif; /* Fonte arredondada */
-    transition: background-color 0.3s, color 0.3s, font-size 0.2s;
-}
-
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-size: var(--font-size-base);
-    filter: brightness(var(--brightness-level));
-    min-height: 100vh;
-    position: relative;
-    overflow-x: hidden;
-}
-
-/* Modo Escuro */
-body.dark-mode {
-    --bg-color: #172b15;
-    --card-bg: #274723;
-    --text-color: #e6f2e2;
-    --side-detail: #568e43;
-}
-
-/* Daltonismo */
-body.deuteranopia { filter: brightness(var(--brightness-level)) grayscale(10%) sepia(20%) hue-rotate(-20deg); }
-body.protanopia { filter: brightness(var(--brightness-level)) grayscale(10%) sepia(30%) hue-rotate(30deg); }
-body.tritanopia { filter: brightness(var(--brightness-level)) grayscale(10%) sepia(20%) hue-rotate(180deg); }
-body.acromatopsia { filter: brightness(var(--brightness-level)) grayscale(100%); }
-
-/* Detalhes Verdes nas Laterais */
-.leaf-detail {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 15px; /* Largura da faixa lateral decorativa */
-    background-color: var(--side-detail);
-    opacity: 0.6;
-    z-index: 10;
-    box-shadow: 0 0 15px rgba(0,0,0,0.05);
-}
-.leaf-left { left: 0; border-radius: 0 10px 10px 0; }
-.leaf-right { right: 0; border-radius: 10px 0 0 10px; }
-
-/* Barra de Acessibilidade */
-.accessibility-bar {
-    background-color: rgba(0, 0, 0, 0.12);
-    padding: 12px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-    position: relative;
-    z-index: 20;
-}
-
-.accessibility-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-button, select {
-    background: #ffffff;
-    color: #3d6a2f;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 25px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.06);
-}
-
-button:hover, select:hover {
-    transform: scale(1.05);
-    background: #f4faf2;
-}
-
-/* Área de Conteúdo */
-.main-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 50px 40px;
-}
-
-.hero {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.hero h1 {
-    font-size: 2.8rem;
-    margin-bottom: 15px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-}
-
-.hero p {
-    font-size: 1.25rem;
-    max-width: 800px;
-    margin: 0 auto;
-    opacity: 0.9;
-    line-height: 1.4;
-}
-
-/* Grid com mais colunas/cards */
-.cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 35px;
-}
-
-/* Cards Estilizados */
-.card {
-    background-color: var(--card-bg);
-    border-radius: 28px;
-    overflow: hidden;
-    box-shadow: 0 10px 22px rgba(0,0,0,0.06);
-    cursor: pointer;
-    transform: translateY(0);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
-}
-
-.card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-}
-
-.card-content {
-    padding: 25px;
-}
-
-.card-content h3 {
-    font-size: 1.45rem;
-    margin-bottom: 12px;
-}
-
-.card-content p {
-    font-size: 1rem;
-    line-height: 1.6;
-    opacity: 0.95;
-}
-
-/* Responsividade Básica */
-@media(max-width: 600px) {
-    .main-content { padding: 30px 20px; }
-    .hero h1 { font-size: 2rem; }
-    .leaf-detail { width: 8px; }
-}// Controle do Tamanho da Fonte
-let currentFontSize = 16;
-function alterarFonte(action) {
-    currentFontSize += action;
-    if(currentFontSize < 12) currentFontSize = 12;
-    if(currentFontSize > 26) currentFontSize = 26;
-    document.documentElement.style.setProperty('--font-size-base', currentFontSize + 'px');
-}
-
-// Controle de Brilho
-let currentBrightness = 100;
-function alterarBrilho(action) {
-    currentBrightness += action;
-    if(currentBrightness < 40) currentBrightness = 40;
-    if(currentBrightness > 160) currentBrightness = 160;
-    document.documentElement.style.setProperty('--brightness-level', currentBrightness + '%');
-}
-
-// Alternar entre Modo Claro / Escuro
-function toggleConteudo() {
-    document.body.classList.toggle('dark-mode');
-}
-
-// Sistema de Filtros de Daltonismo
-function aplicarDaltonismo(tipo) {
-    // Limpa filtros anteriores
-    document.body.classList.remove('deuteranopia', 'protanopia', 'tritanopia', 'acromatopsia');
-    
-    // Insere o novo filtro ativo
-    if (tipo !== 'normal') {
-        document.body.classList.add(tipo);
-    }
-}
+</html>
