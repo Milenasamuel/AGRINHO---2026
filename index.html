@@ -86,8 +86,63 @@
 
     <script src="script.js"></script>
 </body>
-</html>
-/* --- VARIÁVEIS DO SISTEMA --- */
+</html>// Variáveis internas para monitoramento do estado global
+let tamanhoFonteAtual = 18;
+let brilhoAtual = 100;
+
+// Mapeamento dos botões capturados via ID
+const btnAumentarFonte = document.getElementById('btn-aumentar-fonte');
+const btnDiminuirFonte = document.getElementById('btn-diminuir-fonte');
+const btnAumentarBrilho = document.getElementById('btn-aumentar-brilho');
+const btnDiminuirBrilho = document.getElementById('btn-diminuir-brilho');
+const btnTema = document.getElementById('btn-tema');
+
+// --- EVENTOS: AJUSTE DO TAMANHO DA FONTE ---
+btnAumentarFonte.addEventListener('click', () => {
+    if (tamanhoFonteAtual < 26) {
+        tamanhoFonteAtual += 1;
+        atualizarPropriedadeCSS('--tamanho-base-fonte', tamanhoFonteAtual + 'px');
+    }
+});
+
+btnDiminuirFonte.addEventListener('click', () => {
+    if (tamanhoFonteAtual > 14) {
+        tamanhoFonteAtual -= 1;
+        atualizarPropriedadeCSS('--tamanho-base-fonte', tamanhoFonteAtual + 'px');
+    }
+});
+
+// --- EVENTOS: AJUSTE DE BRILHO DA TELA ---
+btnAumentarBrilho.addEventListener('click', () => {
+    if (brilhoAtual < 150) {
+        brilhoAtual += 10;
+        atualizarPropriedadeCSS('--brilho-tela', brilhoAtual + '%');
+    }
+});
+
+btnDiminuirBrilho.addEventListener('click', () => {
+    if (brilhoAtual > 50) {
+        brilhoAtual -= 10;
+        atualizarPropriedadeCSS('--brilho-tela', brilhoAtual + '%');
+    }
+});
+
+// --- EVENTO: ALTERNAR TEMA (EMBUTIDO NO HEADER) ---
+btnTema.addEventListener('click', () => {
+    document.body.classList.toggle('modo-escuro');
+    
+    // Altera dinamicamente o texto interno do botão baseado na ativação
+    if (document.body.classList.contains('modo-escuro')) {
+        btnTema.textContent = '☀️ Modo Claro';
+    } else {
+        btnTema.textContent = '🌙 Modo Escuro';
+    }
+});
+
+// Função interna para injetar novos valores nas variáveis raiz do CSS (:root)
+function atualizarPropriedadeCSS(propriedade, valor) {
+    document.documentElement.style.setProperty(propriedade, valor);
+}/* --- VARIÁVEIS DO SISTEMA --- */
 :root {
     --verde-escuro: #1b4332;
     --verde-medio: #2d6a4f;
@@ -398,61 +453,4 @@ body.modo-escuro .container-grafico {
         display: inline-block;
     }
     h1 { font-size: 2.2rem; }
-}
-// Variáveis internas para monitoramento do estado global
-let tamanhoFonteAtual = 18;
-let brilhoAtual = 100;
-
-// Mapeamento dos botões capturados via ID
-const btnAumentarFonte = document.getElementById('btn-aumentar-fonte');
-const btnDiminuirFonte = document.getElementById('btn-diminuir-fonte');
-const btnAumentarBrilho = document.getElementById('btn-aumentar-brilho');
-const btnDiminuirBrilho = document.getElementById('btn-diminuir-brilho');
-const btnTema = document.getElementById('btn-tema');
-
-// --- EVENTOS: AJUSTE DO TAMANHO DA FONTE ---
-btnAumentarFonte.addEventListener('click', () => {
-    if (tamanhoFonteAtual < 26) {
-        tamanhoFonteAtual += 1;
-        atualizarPropriedadeCSS('--tamanho-base-fonte', tamanhoFonteAtual + 'px');
-    }
-});
-
-btnDiminuirFonte.addEventListener('click', () => {
-    if (tamanhoFonteAtual > 14) {
-        tamanhoFonteAtual -= 1;
-        atualizarPropriedadeCSS('--tamanho-base-fonte', tamanhoFonteAtual + 'px');
-    }
-});
-
-// --- EVENTOS: AJUSTE DE BRILHO DA TELA ---
-btnAumentarBrilho.addEventListener('click', () => {
-    if (brilhoAtual < 150) {
-        brilhoAtual += 10;
-        atualizarPropriedadeCSS('--brilho-tela', brilhoAtual + '%');
-    }
-});
-
-btnDiminuirBrilho.addEventListener('click', () => {
-    if (brilhoAtual > 50) {
-        brilhoAtual -= 10;
-        atualizarPropriedadeCSS('--brilho-tela', brilhoAtual + '%');
-    }
-});
-
-// --- EVENTO: ALTERNAR TEMA (EMBUTIDO NO HEADER) ---
-btnTema.addEventListener('click', () => {
-    document.body.classList.toggle('modo-escuro');
-    
-    // Altera dinamicamente o texto interno do botão baseado na ativação
-    if (document.body.classList.contains('modo-escuro')) {
-        btnTema.textContent = '☀️ Modo Claro';
-    } else {
-        btnTema.textContent = '🌙 Modo Escuro';
-    }
-});
-
-// Função interna para injetar novos valores nas variáveis raiz do CSS (:root)
-function atualizarPropriedadeCSS(propriedade, valor) {
-    document.documentElement.style.setProperty(propriedade, valor);
 }
